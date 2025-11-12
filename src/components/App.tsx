@@ -19,9 +19,9 @@ const DEFAULT_CONFIG: GiftExchangeConfig = {
 
 export function App() {
   const [config, setConfig] = useState<GiftExchangeConfig>(() => {
-    const path = window.location.pathname.slice(1);
-    if (path) {
-      const decoded = decodeBase64Url(path);
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      const decoded = decodeBase64Url(hash);
       if (decoded) return decoded;
     }
     return DEFAULT_CONFIG;
@@ -30,7 +30,7 @@ export function App() {
 
   useEffect(() => {
     const encoded = encodeBase64Url(config);
-    window.history.replaceState(null, "", `/${encoded}`);
+    window.history.replaceState(null, "", `#${encoded}`);
   }, [config]);
 
   return (
